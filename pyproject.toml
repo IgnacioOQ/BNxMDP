@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bn-mdp-bridge"
+version = "0.1.0"
+description = "From-scratch BN/MDP bridge with pgmpy, pycid, and pymdptoolbox compatibility"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "networkx>=3.0",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+pgmpy = ["pgmpy>=0.1.25"]
+pycid = ["pycid>=0.0.3"]
+pymdptoolbox = ["pymdptoolbox>=4.0"]
+compat = ["pgmpy>=0.1.25", "pycid>=0.0.3", "pymdptoolbox>=4.0"]
+dev = ["pytest>=7.4", "pytest-cov>=4.1"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["bn_mdp*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"
+markers = [
+    "compat: tests that require optional compatibility libraries (pgmpy, pymdptoolbox, pycid)",
+]
+
+[tool.coverage.run]
+source = ["bn_mdp"]
